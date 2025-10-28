@@ -20,12 +20,22 @@ export const defaultOptions: ChatOptions = {
 			subtitle: "Start a chat. We're here to help you 24/7.",
 			footer: '',
 			getStarted: 'New Conversation',
-			inputPlaceholder: 'Type your question..',
+			inputPlaceholder: 'Type your question or pick one from below...',
 			closeButtonTooltip: 'Close chat',
+			restartButtonTooltip: 'Restart chat',
 		},
 	},
 	theme: {},
 	enableStreaming: false,
+	showWindowCloseButton: true,
+	showRestartChatButton: true,
+	questionBubbles: [
+		'Question one two three',
+		'Question two',
+		'Question three',
+		'Question four',
+		'Question five',
+	],
 };
 
 export const defaultMountingTarget = '#n8n-chat';

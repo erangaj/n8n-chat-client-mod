@@ -50,6 +50,10 @@ const isSubmitDisabled = computed(() => {
 	if (waitingForChatResponse.value) return false;
 	return input.value === '' || unref(waitingForResponse) || options.disabled?.value === true;
 });
+const isBubblesDisabled = computed(() => {
+	if (waitingForChatResponse.value) return false;
+	return unref(waitingForResponse) || options.disabled?.value === true;
+});
 
 const isInputDisabled = computed(() => options.disabled?.value === true);
 const isFileUploadDisabled = computed(
@@ -241,8 +245,8 @@ async function respondToChatNode(ws: WebSocket, messageText: string) {
 	waitingForChatResponse.value = false;
 }
 
-async function onSubmit(event: MouseEvent | KeyboardEvent) {
-	event.preventDefault();
+async function onSubmit(event: MouseEvent | KeyboardEvent | null) {
+	event?.preventDefault();
 
 	if (isSubmitDisabled.value) {
 		return;
@@ -264,6 +268,11 @@ async function onSubmit(event: MouseEvent | KeyboardEvent) {
 	}
 
 	isSubmitting.value = false;
+}
+
+async function ask(message: string) {
+	input.value = message;
+	await onSubmit(null);
 }
 
 async function onSubmitKeydown(event: KeyboardEvent) {
@@ -363,6 +372,19 @@ function adjustTextAreaHeight() {
 				:is-previewable="true"
 				@remove="onFileRemove"
 			/>
+		</div>
+		<div
+			class="chat-bubble-list"
+			v-if="options?.questionBubbles && !chatStore.messages.value?.length"
+		>
+			<button
+				class="chat-bubble"
+				:disabled="isBubblesDisabled"
+				v-for="q in options?.questionBubbles || []"
+				@click="ask(q)"
+			>
+				{{ q }}
+			</button>
 		</div>
 	</div>
 </template>
@@ -473,5 +495,30 @@ function adjustTextAreaHeight() {
 .chat-input-left-panel {
 	width: var(--chat--input--left--panel--width);
 	margin-left: 0.4rem;
+}
+
+.chat-bubble-list {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	background: #ffffff;
+	border-top: 1px solid var(--chat--color-light-shade-100);
+	padding-bottom: 4px;
+}
+
+.chat-bubble {
+	border: 0;
+	width: max-content;
+	border-radius: 15px;
+	cursor: pointer;
+	font-size: 15px;
+	overflow-wrap: break-word;
+	white-space: normal;
+	word-break: break-word;
+	align-items: flex-start;
+	justify-content: flex-start;
+	padding: 4px 8px;
+	margin-left: 4px;
+	margin-top: 8px;
 }
 </style>

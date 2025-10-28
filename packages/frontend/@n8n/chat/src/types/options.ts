@@ -9,6 +9,7 @@ export interface ChatOptions {
 	target?: string | Element;
 	mode?: 'window' | 'fullscreen';
 	showWindowCloseButton?: boolean;
+	showRestartChatButton?: boolean;
 	showWelcomeScreen?: boolean;
 	loadPreviousSession?: boolean;
 	chatInputKey?: string;
@@ -25,6 +26,7 @@ export interface ChatOptions {
 			getStarted: string;
 			inputPlaceholder: string;
 			closeButtonTooltip: string;
+			restartButtonTooltip: string;
 			[message: string]: string;
 		}
 	>;
@@ -34,4 +36,5 @@ export interface ChatOptions {
 	allowFileUploads?: Ref<boolean> | boolean;
 	allowedFilesMimeTypes?: Ref<string> | string;
 	enableStreaming?: boolean;
+	questionBubbles?: string[];
 }

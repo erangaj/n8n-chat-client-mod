@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Close from 'virtual:icons/mdi/close';
+import Reload from 'virtual:icons/mdi/reload';
 import { computed, nextTick, onMounted } from 'vue';
 
 import GetStarted from '@n8n/chat/components/GetStarted.vue';
@@ -17,6 +18,9 @@ const { messages, currentSessionId } = chatStore;
 const { options } = useOptions();
 
 const showCloseButton = computed(() => options.mode === 'window' && options.showWindowCloseButton);
+const showRestartChatButton = computed(
+	() => options.mode === 'window' && options.showRestartChatButton,
+);
 
 async function getStarted() {
 	if (!chatStore.startNewSession) {
@@ -42,6 +46,12 @@ function closeChat() {
 	chatEventBus.emit('close');
 }
 
+async function restartChat() {
+	messages.value = [];
+	currentSessionId.value = null;
+	await getStarted();
+}
+
 onMounted(async () => {
 	await initialize();
 	if (!options.showWelcomeScreen && !currentSessionId.value) {
@@ -57,6 +67,14 @@ onMounted(async () => {
 				<h1>
 					{{ t('title') }}
 				</h1>
+				<button
+					v-if="showRestartChatButton"
+					class="chat-restart-button"
+					:title="t('restartButtonTooltip')"
+					@click="restartChat"
+				>
+					<Reload height="18" width="18" />
+				</button>
 				<button
 					v-if="showCloseButton"
 					class="chat-close-button"
@@ -92,6 +110,17 @@ onMounted(async () => {
 
 	&:hover {
 		color: var(--chat--close--button--color-hover, var(--chat--color-primary));
+	}
+}
+
+.chat-restart-button {
+	display: flex;
+	border: none;
+	background: none;
+	cursor: pointer;
+
+	&:hover {
+		color: var(--chat--restart--button--color-hover, var(--chat--color-primary));
 	}
 }
 </style>

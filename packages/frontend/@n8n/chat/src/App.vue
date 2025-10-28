@@ -12,6 +12,8 @@ defineProps({});
 
 const { options } = useOptions();
 
+console.log(options);
+
 const isFullscreen = computed<boolean>(() => options.mode === 'fullscreen');
 
 onMounted(() => {

@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import IconChat from 'virtual:icons/mdi/chat';
 import IconChevronDown from 'virtual:icons/mdi/chevron-down';
-import { nextTick, ref } from 'vue';
+import { nextTick, onMounted, ref } from 'vue';
 
 import Chat from '@n8n/chat/components/Chat.vue';
 import { chatEventBus } from '@n8n/chat/event-buses';
+import message from '@n8n/chat/components/Message.vue';
 
 const isOpen = ref(false);
 
@@ -17,6 +18,14 @@ function toggle() {
 		});
 	}
 }
+
+function close() {
+	isOpen.value = false;
+}
+
+onMounted(() => {
+	chatEventBus.on('close', close);
+});
 </script>
 
 <template>
