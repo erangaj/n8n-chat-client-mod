@@ -1,7 +1,11 @@
+<script setup lang="ts">
+import { useOptions } from '@n8n/chat/composables';
+const { options } = useOptions();
+</script>
+
 <template>
 	<div class="chat-powered-by">
-		Powered by
-		<a href="https://n8n.io?utm_source=n8n-external&utm_medium=widget-powered-by">n8n</a>
+		{{ options.poweredByText }}
 	</div>
 </template>
 

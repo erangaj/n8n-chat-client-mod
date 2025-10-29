@@ -14,10 +14,12 @@ import type { ChatMessage } from '../types';
 
 export interface ChatInputProps {
 	placeholder?: string;
+	placeholderWithBubbles?: string;
 }
 
 const props = withDefaults(defineProps<ChatInputProps>(), {
 	placeholder: 'inputPlaceholder',
+	placeholderWithBubbles: 'inputPlaceholderWithBubbles',
 });
 
 export interface ArrowKeyDownPayload {
@@ -341,7 +343,11 @@ function adjustTextAreaHeight() {
 				v-model="input"
 				data-test-id="chat-input"
 				:disabled="isInputDisabled"
-				:placeholder="t(props.placeholder)"
+				:placeholder="
+					options?.questionBubbles && !chatStore.messages.value?.length
+						? t(props.placeholderWithBubbles)
+						: t(props.placeholder)
+				"
 				@keydown.enter="onSubmitKeydown"
 				@input="adjustTextAreaHeight"
 				@mousedown="adjustTextAreaHeight"
@@ -501,24 +507,24 @@ function adjustTextAreaHeight() {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
-	background: #ffffff;
-	border-top: 1px solid var(--chat--color-light-shade-100);
+	background: var(--chat-bubble-list--background);
 	padding-bottom: 4px;
 }
 
 .chat-bubble {
-	border: 0;
 	width: max-content;
 	border-radius: 15px;
 	cursor: pointer;
-	font-size: 15px;
 	overflow-wrap: break-word;
 	white-space: normal;
 	word-break: break-word;
 	align-items: flex-start;
 	justify-content: flex-start;
 	padding: 4px 8px;
-	margin-left: 4px;
+	margin-left: 8px;
 	margin-top: 8px;
+	background: var(--chat--input--bubble--background);
+	border: 1px solid var(--chat--input--bubble-border-color);
+	font-size: x-small;
 }
 </style>

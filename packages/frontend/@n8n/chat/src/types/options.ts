@@ -25,6 +25,7 @@ export interface ChatOptions {
 			footer: string;
 			getStarted: string;
 			inputPlaceholder: string;
+			inputPlaceholderWithBubbles: string;
 			closeButtonTooltip: string;
 			restartButtonTooltip: string;
 			[message: string]: string;
@@ -37,4 +38,7 @@ export interface ChatOptions {
 	allowedFilesMimeTypes?: Ref<string> | string;
 	enableStreaming?: boolean;
 	questionBubbles?: string[];
+	botAvatarUrl?: string;
+	termsUrl?: string;
+	poweredByText?: string;
 }

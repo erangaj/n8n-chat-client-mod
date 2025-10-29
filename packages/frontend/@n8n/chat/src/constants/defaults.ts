@@ -12,15 +12,19 @@ export const defaultOptions: ChatOptions = {
 	chatInputKey: 'chatInput',
 	chatSessionKey: 'sessionId',
 	defaultLanguage: 'en',
-	showWelcomeScreen: false,
-	initialMessages: ['Hi there! 👋', 'My name is Nathan. How can I assist you today?'],
+	showWelcomeScreen: true,
+	initialMessages: [
+		'Hello!',
+		'Please type in your question or select one of the following questions.',
+	],
 	i18n: {
 		en: {
-			title: 'Hi there! 👋',
-			subtitle: "Start a chat. We're here to help you 24/7.",
+			title: 'Casey Tutors AI Chat',
+			subtitle: '',
 			footer: '',
 			getStarted: 'New Conversation',
-			inputPlaceholder: 'Type your question or pick one from below...',
+			inputPlaceholder: 'Type your question...',
+			inputPlaceholderWithBubbles: 'Type your question or pick one from below...',
 			closeButtonTooltip: 'Close chat',
 			restartButtonTooltip: 'Restart chat',
 		},
@@ -29,13 +33,10 @@ export const defaultOptions: ChatOptions = {
 	enableStreaming: false,
 	showWindowCloseButton: true,
 	showRestartChatButton: true,
-	questionBubbles: [
-		'Question one two three',
-		'Question two',
-		'Question three',
-		'Question four',
-		'Question five',
-	],
+	questionBubbles: ['Question 1?'],
+	botAvatarUrl: '',
+	termsUrl: '',
+	poweredByText: '',
 };
 
 export const defaultMountingTarget = '#n8n-chat';

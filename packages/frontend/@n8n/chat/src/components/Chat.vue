@@ -64,25 +64,33 @@ onMounted(async () => {
 	<Layout class="chat-wrapper">
 		<template #header>
 			<div class="chat-heading">
+				<img
+					v-if="options.botAvatarUrl"
+					style="width: 40px; height: 40px"
+					alt="Bot avatar"
+					:src="options.botAvatarUrl"
+				/>
 				<h1>
 					{{ t('title') }}
 				</h1>
-				<button
-					v-if="showRestartChatButton"
-					class="chat-restart-button"
-					:title="t('restartButtonTooltip')"
-					@click="restartChat"
-				>
-					<Reload height="18" width="18" />
-				</button>
-				<button
-					v-if="showCloseButton"
-					class="chat-close-button"
-					:title="t('closeButtonTooltip')"
-					@click="closeChat"
-				>
-					<Close height="18" width="18" />
-				</button>
+				<div style="display: flex; flex-direction: row">
+					<button
+						v-if="showRestartChatButton"
+						class="chat-restart-button"
+						:title="t('restartButtonTooltip')"
+						@click="restartChat"
+					>
+						<Reload height="18" width="18" />
+					</button>
+					<button
+						v-if="showCloseButton"
+						class="chat-close-button"
+						:title="t('closeButtonTooltip')"
+						@click="closeChat"
+					>
+						<Close height="18" width="18" />
+					</button>
+				</div>
 			</div>
 			<p v-if="t('subtitle')">{{ t('subtitle') }}</p>
 		</template>
@@ -107,6 +115,7 @@ onMounted(async () => {
 	border: none;
 	background: none;
 	cursor: pointer;
+	color: var(--chat--close--button--color, var(--chat--color-primary));
 
 	&:hover {
 		color: var(--chat--close--button--color-hover, var(--chat--color-primary));
@@ -118,6 +127,7 @@ onMounted(async () => {
 	border: none;
 	background: none;
 	cursor: pointer;
+	color: var(--chat--restart--button--color, var(--chat--color-primary));
 
 	&:hover {
 		color: var(--chat--restart--button--color-hover, var(--chat--color-primary));
