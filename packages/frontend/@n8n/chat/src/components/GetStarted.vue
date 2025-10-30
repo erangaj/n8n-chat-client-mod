@@ -49,7 +49,7 @@ const { t } = useI18n();
 	line-height: 24px;
 	width: 100%;
 	text-align: center;
-	margin: 10px 0 40px 0;
+	margin: 10px 0 40px;
 }
 .chat-get-disclaimer-text a {
 	color: #16bed7;

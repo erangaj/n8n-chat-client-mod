@@ -140,6 +140,6 @@ onMounted(async () => {
 	padding: 8px 16px;
 	color: var(--chat--color-white) !important;
 	background-color: var(--chat--color-primary) !important;
-	border-radius: 8px 8px 8px 8px;
+	border-radius: 8px;
 }
 </style>
