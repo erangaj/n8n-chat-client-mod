@@ -19,7 +19,7 @@ const { options } = useOptions();
 
 const showCloseButton = computed(() => options.mode === 'window' && options.showWindowCloseButton);
 const showRestartChatButton = computed(
-	() => options.mode === 'window' && options.showRestartChatButton,
+	() => options.mode === 'window' && options.showRestartChatButton && !!currentSessionId.value,
 );
 
 async function getStarted() {
@@ -113,6 +113,7 @@ onMounted(async () => {
 .chat-close-button {
 	display: flex;
 	border: none;
+	padding: 8px !important;
 	background: none;
 	cursor: pointer;
 	color: var(--chat--close--button--color, var(--chat--color-primary));
@@ -125,6 +126,7 @@ onMounted(async () => {
 .chat-restart-button {
 	display: flex;
 	border: none;
+	padding: 8px !important;
 	background: none;
 	cursor: pointer;
 	color: var(--chat--restart--button--color, var(--chat--color-primary));
@@ -132,5 +134,12 @@ onMounted(async () => {
 	&:hover {
 		color: var(--chat--restart--button--color-hover, var(--chat--color-primary));
 	}
+}
+
+.n8n-chat button {
+	padding: 8px 16px;
+	color: var(--chat--color-white) !important;
+	background-color: var(--chat--color-primary) !important;
+	border-radius: 8px 8px 8px 8px;
 }
 </style>
